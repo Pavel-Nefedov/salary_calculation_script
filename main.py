@@ -1,18 +1,17 @@
 import argparse
 
-def read_csv(file_path):
+def read_csv(file_path: str):
     with open(file_path, 'r', encoding='utf-8') as file:
         header = file.readline().strip().split(',')
         data = [line.strip().split(',') for line in file]
     return header, data
 
-def find_hourly_rate_index(header):
+def find_hourly_rate_index(header: list) -> int:
     for index, column in enumerate(header):
         if column in ['hourly_rate', 'rate', 'salary']:
             return index
-    return -1
 
-def generate_departmental_payout_reports(file_paths):
+def generate_departmental_payout_reports(file_paths: list[str]) -> dict:
     department_reports = {}
 
     for file_path in file_paths:
@@ -48,6 +47,7 @@ def main():
             print(f"Отдел: {department}\n" + "\n".join(reports) + "\n")
     else:
         print(f"Отчет типа '{args.report}' не поддерживается")
+
 
 if __name__ == "__main__":
     main()
